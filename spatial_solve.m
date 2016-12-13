@@ -54,12 +54,17 @@ end
 %     end
 % end
 
-figure;
+figure1 = figure;
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
 [C,h] = contourf(xaxis, yaxis, z);
 clabel(C,h);
 xlabel('Latitutde');
 ylabel('Longitude');
+colormap(flipud(colormap('autumn')));
+% colorbar('peer',axes1);
 title('Regional Warming Trend in \circF / Century');
-hold on;
 plot(wi_coords(:,1), wi_coords(:,2), 'k');
-scatter(Alocations(:,1), Alocations(:,2), 'ro');
+scatter(Alocations(:,1), Alocations(:,2), 'ko');
+pbaspect([1 1 1]);
