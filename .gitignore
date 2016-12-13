@@ -2,4 +2,4 @@
 *.out
 *.zip
 cleaned_data
-
+.DS_Store

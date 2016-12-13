@@ -5,6 +5,7 @@ The scripts in this repo should help you get and analyze climate data from any w
 ## Requirements
 
 * matlab/octave for the `.m` analysis/interpolation scripts
+* [cvx](http://cvxr.com/cvx/), a free convex optimization solver
 * python, unix enviroment, and wget to run the `get_data` scripts
 
 ## get_data/

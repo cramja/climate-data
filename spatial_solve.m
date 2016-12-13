@@ -1,8 +1,10 @@
-yaxis=csvread('yaxis.csv');
-xaxis=csvread('xaxis.csv');
-Alocations=csvread('Alocations.csv');
-outlinex=csvread('outlinex.csv');
-outliney=csvread('outliney.csv');
+Alocations = csvread('Alocations.csv'); % known temperature points
+wi_coords = csvread('wi_longlat.csv');
+
+% use the boundaries of the wisconsin map to derive the grid coords
+% for the creation of the contours
+xaxis = linspace(min(wi_coords(:,1)), max(wi_coords(:,1)), 50)';
+yaxis = linspace(min(wi_coords(:,2)), max(wi_coords(:,2)), 50)';
 
 mm = size(Alocations,1);
 K = zeros(mm,6);
@@ -15,7 +17,6 @@ for i = 1:mm
     %K(i,:) = [1 x y];
 end
 
-
 b = Alocations(:,3);
 
 cvx_begin quiet
@@ -26,11 +27,10 @@ cvx_end
 
 spatial_change = x
 
-
 %now solve the grid and plot (with known values replacing estimates)
 m = size(xaxis,1);
 n = size(yaxis,1);
-z=zeros(n,m);
+z = zeros(n,m);
 
 for i=1:m
     for j=1:n
@@ -53,11 +53,10 @@ end
 % title('Regional Warming Trend')
 
 figure;
-[C,h]=contour(xaxis,yaxis,z);
-clabel(C,h)
-xlabel('Miles E')
-ylabel('Miles N')
-title('Regional Warming Trend in deg F / Century')
-hold on
-plot(outlinex,outliney)
-axis equal
+[C,h] = contourf(xaxis, yaxis, z);
+clabel(C,h);
+xlabel('Latitutde');
+ylabel('Longitude');
+title('Regional Warming Trend in deg F / Century');
+hold on;
+plot(wi_coords(:,1), wi_coords(:,2), 'k');
