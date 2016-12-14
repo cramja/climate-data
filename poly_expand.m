@@ -3,6 +3,6 @@ function [ ex ] = poly_expand(x,y)
 %   an offset term
 %   TODO: all degrees
 s_x = size(x, 1);
-ex = [ones(s_x, 1), x, y, x.*y.*2, x.^2, y.^2];
+ex = [ones(s_x, 1), x, y, x.*y, x.^2, y.^2];
 end
 
