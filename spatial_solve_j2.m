@@ -12,14 +12,17 @@ m = size(xaxis,1);
 n = size(yaxis,1);
 z = zeros(n,m);
 l = size(Alocations,1);
+D=sqrt(((xbounds(2)-xbounds(1))*2/3)^2 + ((ybounds(2)-ybounds(1))*2/3)^2);
 
 for i=1:m
     for j = 1:n
         denominator = 0;
         for k = 1:l
             alpha = sqrt((xaxis(i)-Alocations(k,1))^2 + (yaxis(j)-Alocations(k,2))^2);
-            z(j,i)=z(j,i)+ alpha * Alocations(k,3);
-            denominator = denominator + alpha;
+            if alpha <= D
+                z(j,i)=z(j,i)+ alpha * Alocations(k,3);
+                denominator = denominator + alpha;
+            end
         end
         z(j,i)=z(j,i)/denominator;
     end                
